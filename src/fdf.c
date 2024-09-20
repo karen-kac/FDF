@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:29 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/19 12:53:14 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 20:05:03 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	t_fdf	*fdf;
 	int		fd;
 
-	if (argc < 2)
+	if (argc != 2)
 		ft_error_and_exit("error: not enough arguments", &map);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || !ft_is_fdf_file(argv[1]))

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:29 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 14:47:33 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 19:57:37 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	int		fd;
 
 	if (argc < 2)
-		ft_error_and_exit("error: not enough arguments", &map);
+		ft_error_and_exit("error: not enough arguments", NULL);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || !ft_is_fdf_file(argv[1]))
 		ft_error_and_exit("error: invalid file", &map);

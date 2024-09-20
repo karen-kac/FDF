@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 13:20:30 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/12 22:55:32 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 20:26:48 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	size_t	ft_sublen(const char *str, char c)
+static size_t	ft_sublen(const char *str, char c)
 {
 	size_t	len;
 
@@ -24,7 +24,7 @@ static	size_t	ft_sublen(const char *str, char c)
 	return (len);
 }
 
-static	size_t	ft_count_substr(char const *s, char c)
+static size_t	ft_count_substr(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;
@@ -47,7 +47,7 @@ static	size_t	ft_count_substr(char const *s, char c)
 	return (count);
 }
 
-static	char	*ft_substr_split(char const *s, unsigned int start, char c)
+static char	*ft_substr_split(char const *s, unsigned int start, char c)
 {
 	size_t	i;
 	size_t	sublen;
@@ -91,8 +91,8 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	while (s[i] != '\0')
 	{
-		if ((i == 0 && s[i] != c) \
-			|| (s[i + 1] != c && s[i] == c && s[i + 1] != '\0'))
+		if ((i == 0 && s[i] != c) || (s[i + 1] != c && s[i] == c && \
+				s[i + 1] != '\0'))
 			res[j++] = ft_substr_split(s, i, c);
 		i++;
 	}

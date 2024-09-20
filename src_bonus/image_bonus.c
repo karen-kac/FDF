@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:14 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 17:04:48 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 20:09:08 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_image_set_pixel(t_image *image, int x, int y, int color)
 		return ;
 	*(int *)(image->ptr + ((x + y * WIN_WIDTH) * image->bpp)) = color;
 }
-
 
 t_image	*ft_del_image(t_fdf *fdf, t_image *img)
 {
