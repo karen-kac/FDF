@@ -6,19 +6,15 @@
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:03 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 17:02:45 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 19:13:30 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FDF_BONUS_H
 # define FDF_BONUS_H
 
 # define WIN_WIDTH			1280
 # define WIN_HEIGHT			720
-#define M_PI 3.14159265358979323846
-
-
 
 # define MOUSE_LEFT_BUTTON	1
 # define MOUSE_RIGHT_BUTTON	2
@@ -46,7 +42,6 @@
 # define NUM_PAD_PLUS		69
 # define NUM_PAD_MINUS		78
 
-# define MAIN_PAD_ESC		53
 # define MAIN_PAD_I			34
 # define MAIN_PAD_P			35
 # define MAIN_PAD_0			29
@@ -74,13 +69,6 @@
 # include <unistd.h>
 # include <float.h>
 # include <stdbool.h>
-
-
-// typedef enum
-// {
-// 	ISO,
-// 	PARALLEL
-// }	t_projection;
 
 typedef struct			s_cam
 {
@@ -158,14 +146,11 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
-// draw.c
+
 void	ft_render(t_fdf *fdf);
 
 int	ft_color(int c1, int c2, double p);
 
-// fdf.c
-
-// free.c
 void	ft_free(void **ptr);
 
 int	ft_free_map(t_map **map);
@@ -176,7 +161,8 @@ int	ft_free_lst_and_map(t_list **lst, t_map **map);
 
 int	ft_free_split(char ***split);
 
-// hook.c
+t_fdf	*ft_free_fdf(t_fdf *fdf);
+
 int	ft_hook_mousedown(int button, int x, int y, t_fdf *fdf);
 
 int	ft_hook_mouseup(int button, int x, int y, t_fdf *fdf);
@@ -187,25 +173,20 @@ int	ft_hook_keydown(int key, t_fdf *fdf);
 
 void	ft_setup_controls(t_fdf *fdf);
 
-
-// image.c
 void	ft_image_set_pixel(t_image *image, int x, int y, int color);
 
 t_image	*ft_del_image(t_fdf *fdf, t_image *img);
 
 t_image	*ft_new_image(t_fdf *fdf);
 
-// init.c
 t_fdf	*ft_fdf_clear(t_fdf *fdf);
 
 t_fdf	*ft_init_fdf(char *title);
 
 t_cam	*ft_init_cam(t_fdf *fdf);
 
-//
 int	ft_lineclip(t_vector *p1, t_vector *p2);
 
-//map.c
 void	ft_fill_colors(t_map *map);
 
 t_vector	ft_cal_vec(t_vector vec, t_fdf *fdf);
@@ -214,10 +195,8 @@ t_vector	*ft_get_vec(int x, int y, char *str);
 
 t_map	*ft_get_map(int width, int height);
 
-// reader.c
 int	ft_read_file(int fd, t_map **map);
 
-// utils.c
 t_list	*ft_lstnew(void *content);
 
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -232,12 +211,11 @@ int	ft_abs(int i);
 
 void	ft_line(t_fdf *fdf, t_vector p1, t_vector p2);
 
-///
 void	ft_zoom(int key, t_fdf *fdf);
 
 void	ft_move(int key, t_fdf *fdf);
 
-int	ft_close(void *param);
+int	ft_close_win(void *param);
 
 void	ft_rotate(int key, t_fdf *fdf);
 
@@ -245,7 +223,6 @@ void	ft_flatten(int key, t_fdf *fdf);
 
 void	ft_setup_controls(t_fdf *fdf);
 
-///
 int	ft_mouse_press(int button, int x, int y, void *param);
 
 int	ft_mouse_release(int button, int x, int y, void *param);
