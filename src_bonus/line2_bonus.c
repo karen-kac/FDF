@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:23 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 14:43:19 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:51:44 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,42 @@ static int	ft_region(int x, int y)
 	return (c);
 }
 
-static void	ft_clip_xy(t_vector *v, t_vector *p1, t_vector *p2, int rout)
+static void	ft_clip_xy(t_vector *vec, t_vector *p1, t_vector *p2, int rout)
 {
 	if (rout & 1)
 	{
-		v->x = p1->x + (p2->x - p1->x) * (WIN_HEIGHT - p1->y) / (p2->y - p1->y);
-		v->y = WIN_HEIGHT - 1;
+		vec->x = p1->x + (p2->x - p1->x) * \
+				(WIN_HEIGHT - p1->y) / (p2->y - p1->y);
+		vec->y = WIN_HEIGHT - 1;
 	}
 	else if (rout & 2)
 	{
-		v->x = p1->x + (p2->x - p1->x) * -p1->y / (p2->y - p1->y);
-		v->y = 0;
+		vec->x = p1->x + (p2->x - p1->x) * -p1->y / (p2->y - p1->y);
+		vec->y = 0;
 	}
 	else if (rout & 4)
 	{
-		v->x = WIN_WIDTH - 1;
-		v->y = p1->y + (p2->y - p1->y) * (WIN_WIDTH - p1->x) / (p2->x - p1->x);
+		vec->x = WIN_WIDTH - 1;
+		vec->y = p1->y + (p2->y - p1->y) * \
+				(WIN_WIDTH - p1->x) / (p2->x - p1->x);
 	}
 	else
 	{
-		v->x = 0;
-		v->y = p1->y + (p2->y - p1->y) * -p1->x / (p2->x - p1->x);
+		vec->x = 0;
+		vec->y = p1->y + (p2->y - p1->y) * -p1->x / (p2->x - p1->x);
 	}
+}
+
+static void	ft_update_clip_point(t_vector *vec, t_vector *p, int *region)
+{
+	p->x = vec->x;
+	p->y = vec->y;
+	*region = ft_region(p->x, p->y);
 }
 
 int	ft_lineclip(t_vector *p1, t_vector *p2)
 {
-	t_vector	v;
+	t_vector	vec;
 	int			r1;
 	int			r2;
 	int			rout;
@@ -63,20 +72,16 @@ int	ft_lineclip(t_vector *p1, t_vector *p2)
 	r2 = ft_region(p2->x, p2->y);
 	while (!(!(r1 | r2) || (r1 & r2)))
 	{
-		rout = r1 ? r1 : r2;
-		ft_clip_xy(&v, p1, p2, rout);
-		if (rout == r1)
-		{
-			p1->x = v.x;
-			p1->y = v.y;
-			r1 = ft_region(p1->x, p1->y);
-		}
+		rout = 0;
+		if (r1 != 0)
+			rout = r1;
 		else
-		{
-			p2->x = v.x;
-			p2->y = v.y;
-			r2 = ft_region(p2->x, p2->y);
-		}
+			rout = r2;
+		ft_clip_xy(&vec, p1, p2, rout);
+		if (rout == r1)
+			ft_update_clip_point(&vec, p1, &r1);
+		else
+			ft_update_clip_point(&vec, p2, &r2);
 	}
 	return (!(r1 | r2));
 }

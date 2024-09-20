@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:26:57 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/19 12:34:20 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:05:08 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,8 @@
 # include <float.h>
 # include <stdbool.h>
 
-typedef enum
-{
-	ISO,
-	PARALLEL
-}	t_projection;
-
-// typedef struct			s_cam
-// {
-// 	t_projection		projection;
-// 	int					zoom;
-// 	double				alpha;
-// 	double				beta;
-// 	double				gamma;
-// 	float				z_divisor;
-// 	int					offsetx;
-// 	int					offsety;
-// }						t_cam;
-
 typedef struct			s_cam
 {
-	t_projection		projection;
 	int					zoom;
 	double				alpha;
 	double				beta;
@@ -59,8 +40,8 @@ typedef struct			s_cam
 	double				scale;
 	double				min_x;
 	double				min_y;
-	double				max_x;  // 追加
-	double				max_y;  // 追加
+	double				max_x;
+	double				max_y;
 }						t_cam;
 
 
@@ -119,17 +100,12 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
-// color.c
 int	ft_color(int c1, int c2, double p);
 
 void	ft_fill_colors(t_map *map);
-// draw.c
 
 void ft_render(t_fdf *fdf);
 
-// fdf.c
-
-// free.c
 void	ft_free(void **ptr);
 
 int	ft_free_map(t_map **map);
@@ -140,27 +116,21 @@ int	ft_free_lst_and_map(t_list **lst, t_map **map);
 
 int	ft_free_split(char ***split);
 
-// hook.c
 void	ft_setup_controls(t_fdf *fdf);
 
-// image.c
 void	ft_image_set_pixel(t_image *image, int x, int y, int color);
 
 t_image	*ft_del_image(t_fdf *fdf, t_image *img);
 
 t_image	*ft_new_image(t_fdf *fdf);
 
-// init.c
 t_fdf	*ft_free_fdf(t_fdf *fdf);
 
 t_fdf	*ft_init_fdf(char *title);
 
 t_cam	*ft_init_cam(t_fdf *fdf);
 
-//
 int	ft_lineclip(t_vector *p1, t_vector *p2);
-
-//map.c
 
 t_vector	ft_cal_vec(t_vector vec, t_fdf *fdf);
 
@@ -168,10 +138,8 @@ t_vector	*ft_get_vec(int x, int y, char *str);
 
 t_map	*ft_get_map(int width, int height);
 
-// reader.c
 int	ft_read_file(int fd, t_map **map);
 
-// utils.c
 t_list	*ft_lstnew(void *content);
 
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -186,8 +154,6 @@ int	ft_abs(int i);
 
 int	ft_atoi_base(const char *str, int base);
 
-// line.c
 void	ft_line(t_fdf *fdf, t_vector p1, t_vector p2);
-///
 
 #endif

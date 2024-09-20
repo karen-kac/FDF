@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:55 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/19 12:51:56 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:03:48 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	ft_set_cam_defaults(t_cam *cam)
 	cam->max_x = -DBL_MAX;
 	cam->min_y = DBL_MAX;
 	cam->max_y = -DBL_MAX;
-	cam->projection = ISO;
 }
 
 t_cam	*ft_init_cam(t_fdf *fdf)

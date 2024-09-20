@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:22:18 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 15:07:25 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:52:08 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/fdf_bonus.h"
 
 void	ft_free(void **ptr)
 {
-	free(*ptr);
+	if (ptr && *ptr)
+		free(*ptr);
 	*ptr = NULL;
 }
 
@@ -71,39 +71,3 @@ int	ft_free_split(char ***split)
 	ft_free((void **)split);
 	return (0);
 }
-
-
-// void	ft_free_fdf(t_fdf *fdf)
-// {
-// 	int	i;
-
-// 	if (!fdf)
-// 		return ;
-
-// 	if (fdf->zbuf)
-// 	{
-// 		i = 0;
-// 		while (i < fdf->map->height)
-// 		{
-// 			ft_free((void **)&fdf->zbuf[i]);
-// 			i++;
-// 		}
-// 		ft_free((void **)&fdf->zbuf);
-// 	}
-// 	if (fdf->image)
-// 		ft_free((void **)&fdf->image);
-// 	if (fdf->map)
-// 		ft_free_map(&fdf->map);
-// 	if (fdf->cam)
-// 		ft_free((void **)&fdf->cam);
-// 	if (fdf->mouse)
-// 		ft_free((void **)&fdf->mouse);
-// 	if (fdf->window)
-// 		mlx_destroy_window(fdf->mlx, fdf->window);
-// 	if (fdf->mlx)
-// 	{
-// 		mlx_destroy_display(fdf->mlx);
-// 		ft_free((void **)&fdf->mlx);
-// 	}
-// 	ft_free((void **)&fdf);
-// }

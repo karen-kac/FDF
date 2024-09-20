@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reader.c                                           :+:      :+:    :+:   */
+/*   reader_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:49 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 14:43:34 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 14:07:09 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ static int	ft_3d_map(t_map **map, t_list *list)
 
 int	ft_read_file(int fd, t_map **map)
 {
-	int	expected;
-	int	i;
+	int		expected;
+	int		i;
 	t_list	*lst;
 
 	lst = NULL;

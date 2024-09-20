@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   list_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 03:16:23 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 14:43:38 by myokono          ###   ########.fr       */
+/*   Created: 2024/09/18 22:48:37 by myokono           #+#    #+#             */
+/*   Updated: 2024/09/20 16:52:26 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ size_t	ft_lstcount(t_list *lst)
 	return (i);
 }
 
-
 void	ft_lstrev(t_list **lst)
 {
 	t_list	*prev;
@@ -94,20 +93,4 @@ void	ft_lstrev(t_list **lst)
 		cur = next;
 	}
 	*lst = prev;
-}
-
-
-
-double	ft_normalize(double value, double min, double max)
-{
-	if (min == max)
-		return (0.0);
-	return ((value - min) / (max - min));
-}
-
-int	ft_abs(int i)
-{
-	if (i < 0)
-		return (-i);
-	return (i);
 }

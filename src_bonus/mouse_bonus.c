@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 22:07:48 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 14:43:31 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:49:08 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ int	ft_mouse_press(int button, int x, int y, void *param)
 	return (0);
 }
 
-/*
-** Handle mouse release
-*/
-
 int	ft_mouse_release(int button, int x, int y, void *param)
 {
 	t_fdf	*fdf;
@@ -41,10 +37,6 @@ int	ft_mouse_release(int button, int x, int y, void *param)
 	fdf->mouse->isdown = false;
 	return (0);
 }
-
-/*
-** Handle mouse move
-*/
 
 int	ft_mouse_move(int x, int y, void *param)
 {

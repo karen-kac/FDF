@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:03 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 12:27:22 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:02:45 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,15 @@
 # include <float.h>
 # include <stdbool.h>
 
-// typedef struct		s_cam
+
+// typedef enum
 // {
-// 	double		offsetx;
-// 	double		offsety;
-// 	double		x;
-// 	double		y;
-// 	int			scale;
-// 	double		**matrix;
-// }					t_cam;
-typedef enum
-{
-	ISO,
-	PARALLEL
-}	t_projection;
+// 	ISO,
+// 	PARALLEL
+// }	t_projection;
 
 typedef struct			s_cam
 {
-	t_projection		projection;
 	int					zoom;
 	double				alpha;
 	double				beta;
@@ -100,6 +91,11 @@ typedef struct			s_cam
 	float				z_divisor;
 	int					offsetx;
 	int					offsety;
+	double				scale;
+	double				min_x;
+	double				min_y;
+	double				max_x;
+	double				max_y;
 }						t_cam;
 
 typedef struct		s_vector
@@ -193,7 +189,7 @@ void	ft_setup_controls(t_fdf *fdf);
 
 
 // image.c
-void	image_set_pixel(t_image *image, int x, int y, int color);
+void	ft_image_set_pixel(t_image *image, int x, int y, int color);
 
 t_image	*ft_del_image(t_fdf *fdf, t_image *img);
 
@@ -234,7 +230,7 @@ double	ft_normalize(double value, double min, double max);
 
 int	ft_abs(int i);
 
-
+void	ft_line(t_fdf *fdf, t_vector p1, t_vector p2);
 
 ///
 void	ft_zoom(int key, t_fdf *fdf);
@@ -255,4 +251,7 @@ int	ft_mouse_press(int button, int x, int y, void *param);
 int	ft_mouse_release(int button, int x, int y, void *param);
 
 int	ft_mouse_move(int x, int y, void *param);
+
+int	ft_atoi_base(const char *str, int base);
+
 #endif

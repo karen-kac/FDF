@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   hook_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:45 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 14:43:09 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:10:43 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,17 +130,17 @@ void	ft_flatten(int key, t_fdf *fdf)
 	ft_render(fdf);
 }
 
-static void	ft_change_projection(int key, t_fdf *fdf)
-{
-	fdf->cam->alpha = 0;
-	fdf->cam->beta = 0;
-	fdf->cam->gamma = 0;
-	if (key == MAIN_PAD_I)
-		fdf->cam->projection = ISO;
-	else if (key == MAIN_PAD_P)
-		fdf->cam->projection = PARALLEL;
-	ft_render(fdf);
-}
+// static void	ft_change_projection(int key, t_fdf *fdf)
+// {
+// 	fdf->cam->alpha = 0;
+// 	fdf->cam->beta = 0;
+// 	fdf->cam->gamma = 0;
+// 	if (key == MAIN_PAD_I)
+// 		fdf->cam->projection = ISO;
+// 	else if (key == MAIN_PAD_P)
+// 		fdf->cam->projection = PARALLEL;
+// 	ft_render(fdf);
+// }
 
 
 static int	ft_key_press(int key, void *param)
@@ -167,14 +167,14 @@ static int	ft_key_press(int key, void *param)
 		ft_rotate(key, fdf);
 	else if (key == MAIN_PAD_LESS || key == MAIN_PAD_MORE)
 		ft_flatten(key, fdf);
-	else if (key == MAIN_PAD_P || key == MAIN_PAD_I)
-		ft_change_projection(key, fdf);
+	// else if (key == MAIN_PAD_P || key == MAIN_PAD_I)
+	// 	ft_change_projection(key, fdf);
 	return (0);
 }
 
 void	ft_setup_controls(t_fdf *fdf)
 {
-	mlx_hook(fdf->window, 2, 0, ft_key_press, fdf);
+	mlx_key_hook(fdf->window, ft_key_press, fdf);
 	mlx_hook(fdf->window, 17, 0, ft_close, fdf);
 	mlx_hook(fdf->window, 4, 0, ft_mouse_press, fdf);
 	mlx_hook(fdf->window, 5, 0, ft_mouse_release, fdf);
