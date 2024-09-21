@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:29 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 20:05:03 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:31:05 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	ft_error_and_exit(char *message, t_map **map)
 	if (map != NULL)
 		ft_free_map(map);
 	perror(message);
+	leak_detect_check();
+
 	exit (1);
 }
 
@@ -43,20 +45,32 @@ static int	ft_is_fdf_file(const char *file)
 	}
 }
 
+
+
+#include <libc.h>
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks fdf");
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_map	*map;
 	t_fdf	*fdf;
 	int		fd;
 
+	leak_detect_init();
+
 	if (argc != 2)
-		ft_error_and_exit("error: not enough arguments", &map);
+		ft_error_and_exit("error: not enough arguments", NULL);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || !ft_is_fdf_file(argv[1]))
-		ft_error_and_exit("error: invalid file", &map);
+		ft_error_and_exit("error: invalid file", NULL);
 	if (!ft_read_file(fd, &map))
 		ft_error_and_exit("error: invalid file", &map);
-	fdf = ft_init_fdf(ft_strjoin("FdF - ", argv[1]));
+	fdf = ft_init_fdf("FdF - ");
 	if (fdf == NULL)
 		ft_error_and_exit("error: mlx couldn't init", NULL);
 	fdf->map = map;

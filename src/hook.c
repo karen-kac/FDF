@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:45 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/19 00:36:06 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:07:39 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	ft_close_esc(int keycode, t_fdf *fdf)
 	if (!(keycode == 53))
 		return (0);
 	ft_free_fdf(fdf);
+	leak_detect_check();
 	exit (0);
 }
 

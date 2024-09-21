@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:22:18 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 23:18:57 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:33:16 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,55 @@ void	ft_free(void **ptr)
 
 int	ft_free_map(t_map **map)
 {
-	if (map && *map)
-	{
-		ft_free((void **)&(*map)->vectors);
-		ft_free((void **)map);
-	}
+    int i;
+    int j;
+
+    if (map && *map)
+    {
+        if ((*map)->vectors)
+        {
+            // 各 t_vector の配列を解放
+            for (i = 0; i < (*map)->height; i++)
+            {
+                for (j = 0; j < (*map)->width; j++)
+                {
+                    if ((*map)->vectors[i * (*map)->width + j])
+                    {
+                        free((*map)->vectors[i * (*map)->width + j]);
+                        (*map)->vectors[i * (*map)->width + j] = NULL;
+                    }
+                }
+            }
+            free((*map)->vectors);  // vectors 配列自体を解放
+            (*map)->vectors = NULL;
+        }
+        free(*map);  // map 構造体を解放
+        *map = NULL;
+    }
 	return (0);
 }
 
 int	ft_free_lst(t_list **lst)
 {
+	t_list	*current;
 	t_list	*next;
 
-	while (*lst)
+	current = *lst;
+	while (current)
 	{
-		next = (*lst)->next;
-		ft_free(&(*lst)->content);
-		ft_free((void **)lst);
-		*lst = next;
+		next = current->next;
+		if (current->content)
+		{
+			free(current->content);
+			current->content = NULL;
+		}
+		free(current);
+		current = next;
 	}
+	*lst = NULL;
 	return (0);
 }
+
 
 int	ft_free_lst_and_map(t_list **lst, t_map **map)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:36 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/18 23:18:44 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:04:50 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_vector	*ft_get_vec(int x, int y, char *str)
 	else
 	{
 		vec->z = (double)ft_atoi(str);
-		vec->color = -1;
+		vec->color = 0xFF69B4;
 	}
 	return (vec);
 }
@@ -53,7 +53,7 @@ t_map	*ft_get_map(int width, int height)
 	map->vectors = malloc(sizeof(t_vector *) * width * height);
 	if (map->vectors == NULL)
 	{
-		ft_free((void **)&map);
+		ft_free_map(&map);
 		return (NULL);
 	}
 	ft_bzero(map->vectors, sizeof(t_vector *) * width * height);

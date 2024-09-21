@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:29 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 19:57:37 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/21 13:38:06 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ static int	ft_is_fdf_file(const char *file)
 		close (fd);
 		return (0);
 	}
+}
+
+
+#include <libc.h>
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks fdf_bonus");
 }
 
 int	main(int argc, char **argv)

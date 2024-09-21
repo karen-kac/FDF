@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:49 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/19 00:13:31 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:32:54 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static size_t	ft_countwords(char *str, char sep)
 		i++;
 	while (str[i])
 	{
+		if (str[i] == '\n')
+			break ;
 		while (str[i] && str[i] != sep)
 			i++;
 		result++;
@@ -45,7 +47,10 @@ static int	ft_get_lines(int fd, t_list **lst)
 	while (line)
 	{
 		if (expected != (int)ft_countwords(line, ' '))
+		{
+			ft_free((void **)&line);
 			return (ft_free_lst(lst));
+		}
 		tmp = ft_lstnew(line);
 		if (!tmp)
 			return (ft_free_lst(lst));

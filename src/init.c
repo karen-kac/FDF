@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:55 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 14:03:48 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:40:29 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_fdf	*ft_free_fdf(t_fdf *fdf)
 	if (fdf->cam != NULL)
 		ft_free((void **)&fdf->cam);
 	ft_free((void **)&fdf);
+	leak_detect_check();
 	return (NULL);
 }
 
@@ -69,6 +70,19 @@ static void	ft_set_cam_defaults(t_cam *cam)
 	cam->max_y = -DBL_MAX;
 }
 
+// t_cam	*ft_init_cam(t_fdf *fdf)
+// {
+// 	t_cam	*cam;
+
+// 	cam = fdf->cam;
+// 	if (WIN_WIDTH / fdf->map->width / 2 < WIN_HEIGHT / fdf->map->height / 2)
+// 		cam->zoom = WIN_WIDTH / fdf->map->width / 2;
+// 	else
+// 		cam->zoom = WIN_HEIGHT / fdf->map->height / 2;
+// 	ft_set_cam_defaults(cam);
+// 	return (cam);
+// }
+
 t_cam	*ft_init_cam(t_fdf *fdf)
 {
 	t_cam	*cam;
@@ -84,6 +98,13 @@ t_cam	*ft_init_cam(t_fdf *fdf)
 		cam->zoom = WIN_WIDTH / fdf->map->width / 2;
 	else
 		cam->zoom = WIN_HEIGHT / fdf->map->height / 2;
+
+	// 最小値と最大値を設定
+	if (cam->zoom < MIN_ZOOM)
+		cam->zoom = MIN_ZOOM;
+	if (cam->zoom > MAX_ZOOM)
+		cam->zoom = MAX_ZOOM;
+
 	ft_set_cam_defaults(cam);
 	return (cam);
 }
