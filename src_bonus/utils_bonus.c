@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 03:16:23 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 16:52:36 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:44:49 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,21 @@ int	ft_atoi_base(const char *str, int base)
 		value = ft_get_value(*str, base);
 	}
 	return (result * sign);
+}
+
+int	ft_free_split(char ***split)
+{
+	char	**str;
+	int		i;
+
+	i = 0;
+	str = *split;
+	while (*str)
+	{
+		ft_free((void **)str);
+		i++;
+		str = &(*split)[i];
+	}
+	ft_free((void **)split);
+	return (0);
 }

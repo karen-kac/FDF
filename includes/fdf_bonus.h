@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:03 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 20:12:25 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:54:11 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
+
+# define MIN_ZOOM 1
+# define MAX_ZOOM 100
 
 # define MOUSE_LEFT_BUTTON 1
 # define MOUSE_RIGHT_BUTTON 2

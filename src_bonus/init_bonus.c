@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:55 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 16:45:51 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:43:26 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ t_cam	*ft_init_cam(t_fdf *fdf)
 		cam->zoom = WIN_WIDTH / fdf->map->width / 2;
 	else
 		cam->zoom = WIN_HEIGHT / fdf->map->height / 2;
+	if (cam->zoom < MIN_ZOOM)
+		cam->zoom = MIN_ZOOM;
+	if (cam->zoom > MAX_ZOOM)
+		cam->zoom = MAX_ZOOM;
 	ft_set_cam_defaults(cam);
 	return (cam);
 }
@@ -95,10 +99,6 @@ t_fdf	*ft_init_fdf(char *title)
 	if (!fdf)
 		return (NULL);
 	ft_bzero(fdf, sizeof(t_fdf));
-	fdf->cam = malloc(sizeof(t_cam));
-	if (!fdf->cam)
-		return (ft_free_fdf(fdf));
-	ft_bzero(fdf->cam, sizeof(t_cam));
 	fdf->mouse = malloc(sizeof(t_mouse));
 	if (!fdf->mouse)
 		return (ft_free_fdf(fdf));

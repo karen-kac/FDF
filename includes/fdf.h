@@ -6,22 +6,17 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:26:57 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/21 15:39:57 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:53:56 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-#define MIN_ZOOM 1
-#define MAX_ZOOM 100
-
+# define MIN_ZOOM 1
+# define MAX_ZOOM 100
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
-
-#include "leakdetect.h"
-#define malloc(s) leak_detelc_malloc(s, __FILE__, __LINE__)
-#define free leak_detect_free
 
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:22:18 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 16:52:08 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:44:27 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,55 @@ void	ft_free(void **ptr)
 	*ptr = NULL;
 }
 
+static void	ft_free_vectors_rec(t_vector **vectors, int index, int total_size)
+{
+	if (index >= total_size)
+		return ;
+	if (vectors[index])
+	{
+		free(vectors[index]);
+		vectors[index] = NULL;
+	}
+	ft_free_vectors_rec(vectors, index + 1, total_size);
+}
+
 int	ft_free_map(t_map **map)
 {
+	int	total_size;
+
 	if (map && *map)
 	{
-		ft_free((void **)&(*map)->vectors);
-		ft_free((void **)map);
+		if ((*map)->vectors)
+		{
+			total_size = (*map)->height * (*map)->width;
+			ft_free_vectors_rec((*map)->vectors, 0, total_size);
+			free((*map)->vectors);
+			(*map)->vectors = NULL;
+		}
+		free(*map);
+		*map = NULL;
 	}
 	return (0);
 }
 
 int	ft_free_lst(t_list **lst)
 {
+	t_list	*current;
 	t_list	*next;
 
-	while (*lst)
+	current = *lst;
+	while (current)
 	{
-		next = (*lst)->next;
-		ft_free(&(*lst)->content);
-		ft_free((void **)lst);
-		*lst = next;
+		next = current->next;
+		if (current->content)
+		{
+			free(current->content);
+			current->content = NULL;
+		}
+		free(current);
+		current = next;
 	}
+	*lst = NULL;
 	return (0);
 }
 
@@ -53,21 +81,4 @@ int	ft_free_lst_and_map(t_list **lst, t_map **map)
 	if (i == j)
 		return (0);
 	return (1);
-}
-
-int	ft_free_split(char ***split)
-{
-	char	**str;
-	int		i;
-
-	i = 0;
-	str = *split;
-	while (*str)
-	{
-		ft_free((void **)str);
-		i++;
-		str = &(*split)[i];
-	}
-	ft_free((void **)split);
-	return (0);
 }

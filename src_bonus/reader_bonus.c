@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myokono <myokono@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:49 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/20 14:07:09 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:59:16 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static size_t	ft_countwords(char *str, char sep)
 		i++;
 	while (str[i])
 	{
+		if (str[i] == '\n')
+			break ;
 		while (str[i] && str[i] != sep)
 			i++;
 		result++;

@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:55 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/27 18:03:45 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:46:47 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_fdf	*ft_free_fdf(t_fdf *fdf)
 	if (fdf->cam != NULL)
 		ft_free((void **)&fdf->cam);
 	ft_free((void **)&fdf);
-	leak_detect_check();
 	return (NULL);
 }
 

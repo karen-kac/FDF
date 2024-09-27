@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:29 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/21 13:38:06 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:52:13 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ static int	ft_is_fdf_file(const char *file)
 	}
 }
 
-
-#include <libc.h>
-
-__attribute__((destructor))
-static void destructor() {
-    system("leaks fdf_bonus");
-}
-
 int	main(int argc, char **argv)
 {
 	t_map	*map;
@@ -64,7 +56,7 @@ int	main(int argc, char **argv)
 		ft_error_and_exit("error: invalid file", &map);
 	if (!ft_read_file(fd, &map))
 		ft_error_and_exit("error: invalid file", &map);
-	fdf = ft_init_fdf(ft_strjoin("FdF - ", argv[1]));
+	fdf = ft_init_fdf("FdF");
 	if (fdf == NULL)
 		ft_error_and_exit("error: mlx couldn't init", NULL);
 	fdf->map = map;
