@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:22:18 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/21 14:33:16 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:26:48 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,34 @@ void	ft_free(void **ptr)
 	*ptr = NULL;
 }
 
+static void	ft_free_vectors_rec(t_vector **vectors, int index, int total_size)
+{
+	if (index >= total_size)
+		return ;
+	if (vectors[index])
+	{
+		free(vectors[index]);
+		vectors[index] = NULL;
+	}
+	ft_free_vectors_rec(vectors, index + 1, total_size);
+}
+
 int	ft_free_map(t_map **map)
 {
-    int i;
-    int j;
+	int	total_size;
 
-    if (map && *map)
-    {
-        if ((*map)->vectors)
-        {
-            // 各 t_vector の配列を解放
-            for (i = 0; i < (*map)->height; i++)
-            {
-                for (j = 0; j < (*map)->width; j++)
-                {
-                    if ((*map)->vectors[i * (*map)->width + j])
-                    {
-                        free((*map)->vectors[i * (*map)->width + j]);
-                        (*map)->vectors[i * (*map)->width + j] = NULL;
-                    }
-                }
-            }
-            free((*map)->vectors);  // vectors 配列自体を解放
-            (*map)->vectors = NULL;
-        }
-        free(*map);  // map 構造体を解放
-        *map = NULL;
-    }
+	if (map && *map)
+	{
+		if ((*map)->vectors)
+		{
+			total_size = (*map)->height * (*map)->width;
+			ft_free_vectors_rec((*map)->vectors, 0, total_size);
+			free((*map)->vectors);
+			(*map)->vectors = NULL;
+		}
+		free(*map);
+		*map = NULL;
+	}
 	return (0);
 }
 
@@ -70,7 +71,6 @@ int	ft_free_lst(t_list **lst)
 	return (0);
 }
 
-
 int	ft_free_lst_and_map(t_list **lst, t_map **map)
 {
 	int	i;
@@ -81,21 +81,4 @@ int	ft_free_lst_and_map(t_list **lst, t_map **map)
 	if (i == j)
 		return (0);
 	return (1);
-}
-
-int	ft_free_split(char ***split)
-{
-	char	**str;
-	int		i;
-
-	i = 0;
-	str = *split;
-	while (*str)
-	{
-		ft_free((void **)str);
-		i++;
-		str = &(*split)[i];
-	}
-	ft_free((void **)split);
-	return (0);
 }

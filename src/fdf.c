@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:29 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/21 15:31:05 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:36:11 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static void	ft_error_and_exit(char *message, t_map **map)
 		ft_free_map(map);
 	perror(message);
 	leak_detect_check();
-
-	exit (1);
+	exit(1);
 }
 
 static int	ft_is_fdf_file(const char *file)
@@ -35,25 +34,15 @@ static int	ft_is_fdf_file(const char *file)
 		return (0);
 	if (ft_strncmp(file + len_filename - 4, ext, 4) == 0)
 	{
-		close (fd);
+		close(fd);
 		return (1);
 	}
 	else
 	{
-		close (fd);
+		close(fd);
 		return (0);
 	}
 }
-
-
-
-#include <libc.h>
-
-__attribute__((destructor))
-static void destructor() {
-    system("leaks fdf");
-}
-
 
 int	main(int argc, char **argv)
 {
@@ -62,7 +51,6 @@ int	main(int argc, char **argv)
 	int		fd;
 
 	leak_detect_init();
-
 	if (argc != 2)
 		ft_error_and_exit("error: not enough arguments", NULL);
 	fd = open(argv[1], O_RDONLY);

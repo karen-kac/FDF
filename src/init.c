@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 00:16:55 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/21 15:40:29 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:03:45 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,6 @@ static void	ft_set_cam_defaults(t_cam *cam)
 	cam->max_y = -DBL_MAX;
 }
 
-// t_cam	*ft_init_cam(t_fdf *fdf)
-// {
-// 	t_cam	*cam;
-
-// 	cam = fdf->cam;
-// 	if (WIN_WIDTH / fdf->map->width / 2 < WIN_HEIGHT / fdf->map->height / 2)
-// 		cam->zoom = WIN_WIDTH / fdf->map->width / 2;
-// 	else
-// 		cam->zoom = WIN_HEIGHT / fdf->map->height / 2;
-// 	ft_set_cam_defaults(cam);
-// 	return (cam);
-// }
-
 t_cam	*ft_init_cam(t_fdf *fdf)
 {
 	t_cam	*cam;
@@ -98,13 +85,10 @@ t_cam	*ft_init_cam(t_fdf *fdf)
 		cam->zoom = WIN_WIDTH / fdf->map->width / 2;
 	else
 		cam->zoom = WIN_HEIGHT / fdf->map->height / 2;
-
-	// 最小値と最大値を設定
 	if (cam->zoom < MIN_ZOOM)
 		cam->zoom = MIN_ZOOM;
 	if (cam->zoom > MAX_ZOOM)
 		cam->zoom = MAX_ZOOM;
-
 	ft_set_cam_defaults(cam);
 	return (cam);
 }
@@ -117,10 +101,6 @@ t_fdf	*ft_init_fdf(char *title)
 	if (!fdf)
 		return (NULL);
 	ft_bzero(fdf, sizeof(t_fdf));
-	fdf->cam = malloc(sizeof(t_cam));
-	if (!fdf->cam)
-		return (ft_free_fdf(fdf));
-	ft_bzero(fdf->cam, sizeof(t_cam));
 	if (ft_init_(fdf, title) == 0)
 		return (ft_free_fdf(fdf));
 	return (fdf);

@@ -6,7 +6,7 @@
 /*   By: myokono <myokono@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:06:13 by myokono           #+#    #+#             */
-/*   Updated: 2024/09/21 15:04:21 by myokono          ###   ########.fr       */
+/*   Updated: 2024/09/27 18:34:45 by myokono          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,40 +33,34 @@ int	ft_color(int c1, int c2, double p)
 	return (red << 16 | green << 8 | blue);
 }
 
-// void	ft_fill_colors(t_map *map)
-// {
-// 	t_vector	vec;
-// 	t_vector	*tmp;
-// 	t_vector	*next;
+static void	update_color(t_vector *tmp, t_vector *next, \
+		double depth_min, double depth_max)
+{
+	tmp->color = ft_color(tmp->color, next->color,
+			ft_normalize(tmp->z, depth_min, depth_max));
+}
 
-// 	vec.y = 0;
-// 	while (vec.y < map->height)
-// 	{
-// 		vec.x = 0;
-// 		while (vec.x < map->width)
-// 		{
-// 			tmp = map->vectors[(int)vec.y * map->width + (int)vec.x];
-// 			next = map->vectors[(int)vec.y * map->width + (int)vec.x++];
+static void	process_vector(t_map *map, int x, int y)
+{
+	t_vector	*tmp;
+	t_vector	*next;
 
-// 			// if (tmp->color == -1)
-// 			// 	tmp->color = tmp->color;
-// 			// else
-// 			tmp->color = ft_color(tmp->color, next->color, \
-// 					ft_normalize(tmp->z, map->depth_min, map->depth_max));
-// 			// tmp->color = ft_color(0xFF69B4, 0x00FFFF, \
-// 			// 		ft_normalize(tmp->z, map->depth_min, map->depth_max));
-// 			vec.x++;
-// 		}
-// 		vec.y++;
-// 	}
-// }
-
+	tmp = map->vectors[y * map->width + x];
+	if (x + 1 < map->width)
+	{
+		next = map->vectors[y * map->width + (x + 1)];
+		update_color(tmp, next, map->depth_min, map->depth_max);
+	}
+	if (y + 1 < map->height)
+	{
+		next = map->vectors[(y + 1) * map->width + x];
+		update_color(tmp, next, map->depth_min, map->depth_max);
+	}
+}
 
 void	ft_fill_colors(t_map *map)
 {
 	t_vector	vec;
-	t_vector	*tmp;
-	t_vector	*next;
 
 	vec.y = 0;
 	while (vec.y < map->height)
@@ -74,24 +68,7 @@ void	ft_fill_colors(t_map *map)
 		vec.x = 0;
 		while (vec.x < map->width)
 		{
-			tmp = map->vectors[(int)vec.y * map->width + (int)vec.x];
-			
-			// 水平方向の次のベクトルが存在する場合の色補完
-			if (vec.x + 1 < map->width)
-			{
-				next = map->vectors[(int)vec.y * map->width + (int)(vec.x + 1)];
-				tmp->color = ft_color(tmp->color, next->color, \
-					ft_normalize(tmp->z, map->depth_min, map->depth_max));
-			}
-
-			// 垂直方向の次のベクトルが存在する場合の色補完
-			if (vec.y + 1 < map->height)
-			{
-				next = map->vectors[(int)(vec.y + 1) * map->width + (int)vec.x];
-				tmp->color = ft_color(tmp->color, next->color, \
-					ft_normalize(tmp->z, map->depth_min, map->depth_max));
-			}
-
+			process_vector(map, vec.x, vec.y);
 			vec.x++;
 		}
 		vec.y++;
